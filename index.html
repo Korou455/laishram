@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Agro Market Information System</title>
+
+<style>
+  #calculator {
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScDK4aDLXBDdh1VRSEQg9R2wGu5ncpsCb8ng&s') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+}
+#calculator.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calculator::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+} 
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f7f6;
+    padding-top: 120px;
+}
+
+/* HEADER */
+header {
+    background: green;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+
+    position: fixed;   /* ✅ ADD */
+    top: 0;            /* ✅ ADD */
+    left: 0;           /* ✅ ADD */
+    width: 100%;       /* ✅ ADD */
+    z-index: 1001;     /* ✅ ADD */
+}
+
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: center;
+    background: #1b5e20;
+    flex-wrap: wrap;
+
+    position: fixed;
+    top:70px;   /* ✅ FIXED */
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+
+    background: url("background.jpg") no-repeat center center fixed;  /* ✅ ADD */
+    background-size: cover;   /* ✅ ADD */
+
+    padding-top: 100px;
+}
+
+nav a {
+    color: white;
+    padding: 12px 18px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background: lightskyblue;
+}
+
+/* SECTIONS */
+section {
+    display: none;
+    padding: 20px;
+}
+
+.active {
+    display: block;
+}
+
+/* CARDS */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 180px;
+    background: white;
+    margin: 10px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    padding: 10px;
+}
+
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* DETAIL PAGE */
+.detail img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.detail p {
+    font-size: 20px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    background: lightslategrey;
+    margin-bottom: 10px;
+}
+
+/* FORM */
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    header{
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    .logo{
+        height: 30px;
+    }
+    nav{
+        flex-direction: column;
+        align-items: center;
+    }
+     nav a{
+        width: 100%;
+        text-align: center;
+        padding: 10px
+     }
+      body{
+        padding-top: 200px;
+      }
+      .card{
+        width: 90%;
+      }
+    }
+
+@media (max-width: 600px) {
+    #calculator {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+header img {
+    height: 40px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+@keyframes fadeInLogo {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.logo {
+    height: 45px;
+    animation: fadeInLogo 1.5s ease-in-out;
+}
+
+header span {
+    animation: fadeInLogo 2s ease-in-out;
+}
+
+</style>
+</head>
+
+<body>
+
+<header style="display:flex; align-items:center; justify-content:center; gap:10px;">
+    <img src="agro.png" class="logo"  style="height:50px;">
+    <span>Agro Market Information System</span>
+</header>
+
+<nav>
+<a href="#" onclick="showSection('home')">Home</a>
+<a href="#" onclick="showSection('about')">About</a>
+<a href="#" onclick="showSection('login')">Login</a>
+<a href="#" onclick="showSection('contact')">Contact</a>
+<a href="#" onclick="showSection('sell')">Sell Product</a>
+<a href="#" onclick="logout()">Logout</a>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="active">
+<h2>Select Animal</h2>
+
+<div class="container">
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Pig_farm_Vampula_1.jpg">
+<button onclick="openAnimal('pig')">Pig</button>
+</div>
+
+<div class="card">
+<img src="https://i.natgeofe.com/k/327b01e8-be2e-4694-9ae9-ae7837bd8aea/mallard-male-swimming.jpg">
+<button onclick="openAnimal('duck')">Duck</button>
+</div>
+
+<div class="card">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Male_and_female_chicken_sitting_together.jpg">
+<button onclick="openAnimal('chicken')">Chicken</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBXSKGQTcxElYAefDV2MSXy8K9ysSeMP5Sng&s">
+<button onclick="openAnimal('fish')">Fish</button>
+</div>
+
+<div class="card">
+<img src="https://www.britishgoatsociety.com/wp-content/uploads/2014/11/age-can-breed.jpg">
+<button onclick="openAnimal('goat')">Goat</button>
+</div>
+
+<div class="card">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT74p0-GFNquBzzGLN9SazH22Wrus46aPPqYQ&s">
+<button onclick="openAnimal('cat')">Cat</button>
+</div>
+
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/992/992651.png">
+<button onclick="showSection('calculator')">Calculator</button>
+</div>
+
+</div>
+</section>
+
+<!-- DETAIL PAGE -->
+<section id="animalPage" class="detail">
+<button class="back-btn" onclick="showSection('home')">⬅ Back</button>
+<h2 id="animalTitle"></h2>
+<div id="animalContent"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>About</h2>
+<p style="font-size:20px;">
+This Agro Market Information System is built to support farmers with simple and practical tools for daily farming activities. It provides clear guidance on animal feeding, growth stages, and care management. Farmers can also use the platform to calculate values, check important numbers, and sell their products by uploading images with price and contact details. The system is designed to improve productivity, reduce confusion, and make farming more organized, efficient, and accessible for both beginners and experienced users.
+</p>
+</section>
+
+<!-- LOGIN -->
+<section id="login">
+<h2>Login</h2>
+<input type="text" placeholder="Username">
+<input type="email_id" placeholder="email_id">
+<input type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<p id="loginMsg"></p>
+</section>
+
+<!-- CONTACT (NEWLY ADDED) -->
+<section id="contact">
+<h2>Contact Us</h2>
+
+<p style="font-size:20px;">
+If you have any questions about feeding or farming guidance, feel free to contact us.
+</p>
+
+<input type="text" placeholder="Your Name">
+<input type="email" placeholder="Your Email">
+<textarea placeholder="Your Message"></textarea>
+
+<button onclick="sendMessage()">Send Message</button>
+
+<p id="contactMsg"></p>
+</section>
+<section id="sell">
+<h2>Sell Your Product</h2>
+
+<input type="file" id="productImage">
+<input type="text" id="productText" placeholder="Enter price / contact info">
+
+<button onclick="addProduct()">Upload Product</button>
+
+<h3>Products</h3>
+<div id="productList" class="container"></div>
+</section>
+
+<section id="calculator" style="position: relative;">
+    <h2>Farmer Calculator</h2>
+<div style="background:white; padding:20px; position:relative; z-index:1;">
+<h3>Basic Calculator</h3>
+<input type="number" id="num1" placeholder="Enter first number">
+<input type="number" id="num2" placeholder="Enter second number">
+<button onclick="calculate('+')">+</button>
+<button onclick="calculate('-')">-</button>
+<button onclick="calculate('*')">*</button>
+<button onclick="calculate('/')">/</button>
+<p id="calcResult"></p>
+
+<h3>Prime Number Check</h3>
+<input type="number" id="primeNum" placeholder="Enter number">
+<button onclick="checkPrime()">Check Prime</button>
+<p id="primeResult"></p>
+
+<h3>Whole Number Check</h3>
+<input type="number" id="wholeNum" placeholder="Enter number">
+<button onclick="checkWhole()">Check</button>
+<p id="wholeResult"></p>
+
+</div>
+</section>
+
+<script>
+    let isLoggedIn = false;
+
+function showSection(id) {
+    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+function openAnimal(animal) {
+
+    showSection("animalPage");
+
+    let title = "";
+    let content = "";
+
+    if(animal === "pig") {
+        title = "Pig Feeding Chart";
+        content = `
+        <h3>Starter</h3>
+        <img src="https://afrimash.com/wp-content/uploads/2020/03/starter-2.jpg">
+        <p>0.5–1 kg/day</p>
+
+        <h3>Grower</h3>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTb8jOp-5hZMAAYGFNYQY7ddJL9o6MFUp-lnA&s">
+        <p>1–2 kg/day</p>
+
+        <h3>Finisher</h3>
+        <img src="https://media.istockphoto.com/id/588971516/photo/pigs-eating-from-hog-feeder.jpg?s=612x612&w=0&k=20&c=NJfKGmz-5WouQHv5AWMycMOY4ML3iUNbmj-TOMzHYkA=">
+        <p>2–3 kg/day</p>
+        `;
+    }
+
+    else if(animal === "duck") {
+        title = "Duck Feeding Chart";
+        content = `
+        <h3>Starter</h3>
+        <img src="https://www.shutterstock.com/image-photo/close-ducks-duckling-over-straws-260nw-358458077.jpg">
+        <p>50g/day</p>
+
+        <h3>Grower</h3>
+        <img src="https://www.poultryhub.org/content/uploads/2019/07/Ducks-2-scaled.jpg">
+        <p>100g/day</p>
+
+        <h3>Finisher</h3>
+        <img src="https://www.agrifarming.in/wp-content/uploads/Duck-Rearing-in-Polythene-Ponds-4.jpg">
+        <p>150g/day</p>
+        `;
+    }
+
+    else if(animal === "chicken") {
+        title = "Chicken Feeding Chart";
+        content = `
+        <h3>Starter</h3>
+        <img src="https://i0.wp.com/afrimash.com/wp-content/uploads/2022/04/image-2022-04-03T222358.159.jpg">
+        <p>40–50g/day</p>
+
+        <h3>Grower</h3>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqNZYEg7J5yLwqAmwjv-QwHC__jk-Z6b5geg&s">
+        <p>70–100g/day</p>
+
+        <h3>Finisher</h3>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUIQJKJEUcZffbwCn2SoghU33rzUj0BHoiCQ&s">
+        <p>120–150g/day</p>
+        `;
+    }
+
+    else if(animal === "fish") {
+        title = "Fish Feeding Chart";
+        content = `
+        <img src="https://onyxaqua.com/wp-content/uploads/2020/09/Feed-Chart.png" style="width: 100%; max-width: 500px;">
+        <p>AQUARIUM FISH</p>
+        `;
+    }
+
+    else if(animal === "goat") {
+    title = "Goat Feeding Chart";
+    content = `
+    <h3>Starter</h3>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjlhSDWgaJS_ORHqXYkCanvDNBvSy9qYVShQ&s">
+    <p>Milk + soft grass</p>
+
+    <h3>Grower</h3>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyOh8h5IHRUxt2Dy8NKuJZuqCJ67zIRRaDHg&s">
+    <p>1–2 kg green fodder</p>
+
+    <h3>Finisher</h3>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgjeCvl2AebyKVDymdAqKW08dxX7b1MkUviw&s">
+    <p>2–3 kg fodder + grains</p>
+    `;
+}
+
+else if(animal === "cat") {
+    title = "Cat Feeding Chart";
+    content = `
+    <h3>Starter</h3>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZC5FZ78V3WExbKWCRKEQ2ILanGmRxGAaKiw&s">
+    <p>Milk + soft food</p>
+
+    <h3>Grower</h3>
+    <img src="https://preview.redd.it/what-will-this-little-guy-look-like-when-hes-grown-up-v0-0evsutku0kpe1.jpg?width=640&crop=smart&auto=webp&s=af0c111eddba8c089849a302a357dda00138d569">
+    <p>2 meals/day</p>
+
+    <h3>Finisher</h3>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ugpRXLNBa3DZN0tU6gc0Mq6dzl2h9UOpJA&s">
+    <p>2–3 balanced meals/day</p>
+    `;
+}
+
+    document.getElementById("animalTitle").innerText = title;
+    document.getElementById("animalContent").innerHTML = content;
+}
+
+function login() {
+    isLoggedIn = true;
+    document.getElementById("loginMsg").innerText = "Login Successful!";
+    showSection('calculator');
+}
+
+
+function sendMessage() {
+    document.getElementById("contactMsg").innerText = "Message sent!";
+}
+function addProduct() {
+
+    let file = document.getElementById("productImage").files[0];
+    let text = document.getElementById("productText").value;
+
+    if (!file) {
+        alert("Select image!");
+        return;
+    }
+
+    let reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        let productHTML = `
+        <div class="card">
+            <img src="${e.target.result}" style="height:150px;">
+            <p>${text}</p>
+        </div>
+        `;
+
+        document.getElementById("productList").innerHTML += productHTML;
+    };
+
+    reader.readAsDataURL(file);
+}
+function logout() {
+    isLoggedIn = false;
+    alert("Logged out successfully!");
+    showSection('login'); // send back to login page
+}
+function calculate(op) {
+    let a = Number(document.getElementById("num1").value);
+    let b = Number(document.getElementById("num2").value);
+    let result;
+
+    if(op === '+') result = a + b;
+    else if(op === '-') result = a - b;
+    else if(op === '*') result = a * b;
+    else if(op === '/') result = b !== 0 ? a / b : "Cannot divide by 0";
+
+    document.getElementById("calcResult").innerText = "Result: " + result;
+}
+
+function checkPrime() {
+    let num = Number(document.getElementById("primeNum").value);
+    let isPrime = true;
+
+    if(num <= 1) isPrime = false;
+
+    for(let i = 2; i < num; i++) {
+        if(num % i === 0) {
+            isPrime = false;
+            break;
+        }
+    }
+
+    document.getElementById("primeResult").innerText =
+        isPrime ? "Prime Number" : "Not Prime";
+}
+
+function checkWhole() {
+    let num = Number(document.getElementById("wholeNum").value);
+
+    if(Number.isInteger(num) && num >= 0) {
+        document.getElementById("wholeResult").innerText = "Whole Number";
+    } else {
+        document.getElementById("wholeResult").innerText = "Not Whole Number";
+    }
+}
+
+
+</script>
+
+</body>
+</html>
